@@ -31,8 +31,10 @@ struct thread_core_local thread_core_local[CFG_TEE_CORE_NB_CORE] __nex_bss;
  */
 
 #ifdef CFG_WITH_STACK_CANARIES
-#define START_CANARY_VALUE	0xdededede
-#define END_CANARY_VALUE	0xabababab
+uint32_t start_canary_value = 0xdededede;
+uint32_t end_canary_value = 0xabababab;
+#define START_CANARY_VALUE	start_canary_value
+#define END_CANARY_VALUE	end_canary_value
 #define GET_START_CANARY(name, stack_num) name[stack_num][0]
 #define GET_END_CANARY(name, stack_num) \
 	name[stack_num][sizeof(name[stack_num]) / sizeof(uint32_t) - 1]
