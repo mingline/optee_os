@@ -34,7 +34,7 @@
 
 struct tee_fs_fd {
 	struct tee_fs_htree *ht;
-	int fd;
+	int64_t fd;
 	struct tee_fs_dirfile_fileh dfh;
 	const TEE_UUID *uuid;
 };

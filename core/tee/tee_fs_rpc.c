@@ -51,7 +51,7 @@ static TEE_Result operation_commit(struct tee_fs_rpc_operation *op)
 
 static TEE_Result operation_open_dfh(uint32_t id, unsigned int cmd,
 				 const struct tee_fs_dirfile_fileh *dfh,
-				 int *fd)
+				 int64_t *fd)
 {
 	struct tee_fs_rpc_operation op = { };
 	struct mobj *mobj = NULL;
@@ -85,19 +85,19 @@ static TEE_Result operation_open_dfh(uint32_t id, unsigned int cmd,
 
 
 TEE_Result tee_fs_rpc_open_dfh(uint32_t id,
-			       const struct tee_fs_dirfile_fileh *dfh, int *fd)
+			       const struct tee_fs_dirfile_fileh *dfh, int64_t *fd)
 {
 	return operation_open_dfh(id, OPTEE_RPC_FS_OPEN, dfh, fd);
 }
 
 TEE_Result tee_fs_rpc_create_dfh(uint32_t id,
 				 const struct tee_fs_dirfile_fileh *dfh,
-				 int *fd)
+				 int64_t *fd)
 {
 	return operation_open_dfh(id, OPTEE_RPC_FS_CREATE, dfh, fd);
 }
 
-TEE_Result tee_fs_rpc_close(uint32_t id, int fd)
+TEE_Result tee_fs_rpc_close(uint32_t id, int64_t fd)
 {
 	struct tee_fs_rpc_operation op = {
 		.id = id, .num_params = 1, .params = {
@@ -109,7 +109,7 @@ TEE_Result tee_fs_rpc_close(uint32_t id, int fd)
 }
 
 TEE_Result tee_fs_rpc_read_init(struct tee_fs_rpc_operation *op,
-				uint32_t id, int fd, tee_fs_off_t offset,
+				uint32_t id, int64_t fd, tee_fs_off_t offset,
 				size_t data_len, void **out_data)
 {
 	struct mobj *mobj;
@@ -148,7 +148,7 @@ TEE_Result tee_fs_rpc_read_final(struct tee_fs_rpc_operation *op,
 }
 
 TEE_Result tee_fs_rpc_write_init(struct tee_fs_rpc_operation *op,
-				 uint32_t id, int fd, tee_fs_off_t offset,
+				 uint32_t id, int64_t fd, tee_fs_off_t offset,
 				 size_t data_len, void **data)
 {
 	struct mobj *mobj;
@@ -181,7 +181,7 @@ TEE_Result tee_fs_rpc_write_final(struct tee_fs_rpc_operation *op)
 	return operation_commit(op);
 }
 
-TEE_Result tee_fs_rpc_truncate(uint32_t id, int fd, size_t len)
+TEE_Result tee_fs_rpc_truncate(uint32_t id, int64_t fd, size_t len)
 {
 	struct tee_fs_rpc_operation op = {
 		.id = id, .num_params = 1, .params = {

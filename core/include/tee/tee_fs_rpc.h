@@ -25,25 +25,25 @@ struct tee_fs_rpc_operation {
 struct tee_fs_dirfile_fileh;
 
 TEE_Result tee_fs_rpc_open_dfh(uint32_t id,
-			       const struct tee_fs_dirfile_fileh *dfh, int *fd);
+			       const struct tee_fs_dirfile_fileh *dfh, int64_t *fd);
 TEE_Result tee_fs_rpc_create_dfh(uint32_t id,
 				 const struct tee_fs_dirfile_fileh *dfh,
-				 int *fd);
-TEE_Result tee_fs_rpc_close(uint32_t id, int fd);
+				 int64_t *fd);
+TEE_Result tee_fs_rpc_close(uint32_t id, int64_t fd);
 
 TEE_Result tee_fs_rpc_read_init(struct tee_fs_rpc_operation *op,
-				uint32_t id, int fd, tee_fs_off_t offset,
+				uint32_t id, int64_t fd, tee_fs_off_t offset,
 				size_t data_len, void **out_data);
 TEE_Result tee_fs_rpc_read_final(struct tee_fs_rpc_operation *op,
 				 size_t *data_len);
 
 TEE_Result tee_fs_rpc_write_init(struct tee_fs_rpc_operation *op,
-				 uint32_t id, int fd, tee_fs_off_t offset,
+				 uint32_t id, int64_t fd, tee_fs_off_t offset,
 				 size_t data_len, void **data);
 TEE_Result tee_fs_rpc_write_final(struct tee_fs_rpc_operation *op);
 
 
-TEE_Result tee_fs_rpc_truncate(uint32_t id, int fd, size_t len);
+TEE_Result tee_fs_rpc_truncate(uint32_t id, int64_t fd, size_t len);
 TEE_Result tee_fs_rpc_remove_dfh(uint32_t id,
 				 const struct tee_fs_dirfile_fileh *dfh);
 #endif /* __TEE_TEE_FS_RPC_H */
